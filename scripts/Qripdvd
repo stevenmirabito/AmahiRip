@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# Qripdvd 06/02/10 ###############################################
+##								##
+## Used in concert with Qencode and Qmanager. Requires vobcopy.	##
+##								##
+##################################################################
+
+rTIMESTAMP=${rTIMESTAMP:=$(date +%m%d%H%M%S)}
+## Create Timestamp
+
+rWORKPATH=${rWORKPATH:=/tmp/dvdrip/$rTIMESTAMP}
+## Temporary output path for work files.
+
+rQUEUEPATH=/tmp/dvdrip/queue/
+## Set path for queue file
+
+
+############# DO NOT CHANGE ANYTHING BELOW THIS LINE #############
+##################################################################
+
+## Get DVD disc title
+rDISCTITLE=($(vobcopy -I 2>&1 | grep "DVD-name:" | gawk '{print $3}'))
+
+## Set path for DVD rip.
+rINPUT=${rINPUT:=$rWORKPATH/$rDISCTITLE}
+
+## Create work directory.
+mkdir -p $rWORKPATH
+
+## Dump disc VOB files to work directory.
+## vobcopy creates a folder for the VOB files with the same name as source DVD.
+vobcopy -f -m -o ${rWORKPATH}
+
+## Dump all pertinent variables into a queue file
+echo export DISCTITLE=\"$rDISCTITLE\" >> $rQUEUEPATH$rTIMESTAMP".queue"
+echo export TIMESTAMP=\"$rTIMESTAMP\" >> $rQUEUEPATH$rTIMESTAMP".queue"
+echo export WORKPATH=\"$rWORKPATH\" >> $rQUEUEPATH$rTIMESTAMP".queue"
+echo export INPUT=\"$rINPUT\" >> $rQUEUEPATH$rTIMESTAMP".queue"
+
+## Eject disc.
+eject /dev/sr0
+
+exit

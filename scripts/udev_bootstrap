@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+su -l -c "%AMAHIRIP_DIR%/scripts/detectdisc" root & 
+exit

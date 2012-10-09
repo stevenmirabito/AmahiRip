@@ -1,0 +1,123 @@
+/* General */
+
+body {
+	background: #121921 url('../images/background.jpg');
+	font-family: "Trebuchet MS", Arial, sans-serif;
+}
+
+a {
+	color: #000;
+	text-decoration: none;
+}
+
+#container {
+	width: 550px;
+	margin: 0 auto;
+	background: #fff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	box-shadow: #000 0 5px 10px;
+	-webkit-box-shadow: #000 0 5px 10px;
+	-moz-box-shadow: #000 0 5px 10px;
+	padding: 15px;
+}
+
+/* Logo & Headers */
+
+#logo {
+	width: 400px;
+	margin: 30px auto;
+}
+
+#logo > img {
+	width: 400px;
+	height: 94px;
+}
+
+#header {
+	background: url('../images/icons/configuration.png') no-repeat left center;
+	padding-left: 40px;
+	font-size: 20px;
+	line-height: 32px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+#header > #right {
+	float: right;
+	font-size: 15px;
+	font-weight: normal;
+}
+
+#header > #right a:hover, #header > #right a:active {
+	border-bottom: 1px dotted #000;
+}
+
+/* Content */
+
+#tabs > div {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 16px;
+}
+
+form fieldset {
+	padding-top: 20px;
+	margin-bottom: 20px;
+}
+
+form fieldset.last {
+	margin-bottom: 0;
+}
+
+form span {
+	display: block;
+}
+
+form span.ui-icon {
+	display: inline;
+}
+
+form span > label {
+	clear: left;
+	float: left;
+	width: 25%;
+	padding-right: 2%;
+	height: 1em;
+	margin-bottom: 10px;
+	text-align: right;
+}
+
+form span > input {
+	float: left;
+	height: 1em;
+	margin-bottom: 15px;
+	width: 70%;
+}
+
+#submitButtonContainer {
+	text-align: center;
+	margin: 20px 0 10px;
+}
+
+/* Footer */
+
+#footer {
+	text-align: center;
+	margin-top: 10px;
+	color: #fff;
+	font-size: 12px;
+}
+
+#footer > a {
+	color: #fff;
+}
+
+#footer > a:hover, #footer > a:active {
+	border-bottom: 1px dotted #fff;
+}
+
+#credits {
+	font-family: "Trebuchet MS", Arial, sans-serif;
+	font-size: 14px;
+}

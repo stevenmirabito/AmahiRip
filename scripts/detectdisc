@@ -1,0 +1,44 @@
+#!/bin/bash
+
+# detectdisc 3/15/10 ###########################################################
+## This script monitors for mounted optical discs, evaluates them for type    ##
+## (CDDA, DVD, BR, Data) and launches the appropriate content-ripping script. ##
+##                   BR functionality not yet developed                       ##
+################################################################################
+
+logger -s -t amahirip "Determining disc type..."
+
+sleep 10	# Give the disc a moment to mount
+
+device="${1:-/dev/sr0}"
+udi=$(hal-find-by-property --key block.device --string $device | \
+    while read u ; do \
+        [[ "$(hal-get-property --udi $u --key block.is_volume)" == "true" ]] && \
+        [[ "$(hal-get-property --udi $u --key volume.is_disc)" == "true" ]] && \
+        [[ "$(hal-get-property --udi $u --key volume.disc.is_blank)" == "false" ]] && \
+        echo $u ; \
+    done)
+	
+if [[ "$udi" != "" ]]; then
+    if [[ "$(hal-get-property --udi $udi --key volume.is_mounted)" == "false" ]]; then
+        pmount /dev/sr0
+		sleep 10	# Give the disc a moment to mount
+    fi
+
+    if [[ "$(hal-get-property --udi $udi --key volume.disc.has_audio)" == "true" ]]; then
+        logger -s -t amahirip "Audio CD detected, starting ripaudio..."
+		bash %AMAHIRIP_DIR%/scripts/ripaudio # Launch automatic CD ripping script
+	exit
+    elif [[ "$(hal-get-property --udi $udi --key volume.disc.is_videodvd)" == "true" ]]; then
+        logger -s -t amahirip "Video DVD detected, starting Qripdvd..."
+		bash %AMAHIRIP_DIR%/scripts/Qripdvd # Launch automatic DVD ripping script
+	exit
+    elif [[ "$(hal-get-property --udi $udi --key volume.disc.has_data)" == "true" ]]; then
+		logger -s -t amahirip "Data disc detected, starting ripdata..."
+		bash %AMAHIRIP_DIR%/scripts/ripdata # Launch automatic DATA ripping script
+	exit
+    fi
+else
+   	logger -s -t amahirip "No disc detected."
+	exit
+fi

@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+logger -s -t amahirip "Starting RubyRipper..."
+%AMAHIRIP_DIR%/bin/rrip_cli -v -f %AMAHIRIP_DIR%/config/mp3_settings -d
+logger -s -t amahirip "Done."
+exit

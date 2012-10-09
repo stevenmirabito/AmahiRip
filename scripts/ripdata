@@ -1,0 +1,115 @@
+#!/bin/bash
+
+# ripdata 3/15/10 ########################################################
+##                                                                	##
+## This script looks for files on mounted optical media, copies and	##
+## sorts them by file type into designated directories on the HD.	##
+## 									##
+## Adam Jenkins								##
+## 									##
+##########################################################################
+
+DISC=${DISC:=/media/sr0}
+## Path for optical disc
+
+TIMESTAMP=${TIMESTAMP:=$(date +%m%d%H%M%S)}
+## Create Timestamp
+
+WORKPATH=${WORKPATH:=/tmp/datarip/$TIMESTAMP}
+## Temporary output path for work files.
+
+MOVIES=${MOVIES:=/var/hda/files/Movies}
+## Where movie files go
+
+MUSIC=${MUSIC:=/var/hda/files/Music}
+## Where music files go
+
+PICS=${PICS:=/var/hda/files/Pictures}
+## Where picture files go
+
+BOOKS=${BOOKS:=/var/hda/files/Books}
+## Where digital books go
+
+MISC=${MISC:=/var/hda/files/Misc}
+## Where everything else goes
+
+MOVIETYPES=${MOVIETYPES:=mkv avi mov m2ts mpg mp2 mp4 mpeg mpv flv divx xvid srt sub }
+## List of movie suffixes to ID
+
+MUSICTYPES=${MUSICTYPES:=mp3 mpa m4a aac ogg flac }
+## List of audio suffixes to ID
+
+PICTYPES=${PICTYPES:=jpg jpeg gif tif tiff bmp psd pic pict ai eps }
+## List of image suffixes to ID
+
+BOOKTYPES=${BOOKTYPES:=pdf cbr }
+## List of book suffixes to ID
+
+MISCTYPES=${MISCTYPES:=a b c d e f g h i j k m n o p q r s u v w x y z }
+## Eveything else, shotgun method
+
+USER=${USER:=admin}
+GROUP=${GROUP:=users}
+## For setting file ownership
+
+               #################################
+############### DO NOT EDIT ANYTHING BELOW HERE ###############
+               #################################
+
+ORIGINAL_IFS=$IFS
+
+mkdir -p $WORKPATH
+## Create working directory.
+
+rsync -a -m -W $DISC/*/* $WORKPATH
+## Dump disc files to work directory
+
+eject /dev/dvd
+## Eject Disc.
+
+## BEGIN SORTING FILES
+for i in ${MOVIETYPES[*]} ${MUSICTYPES[*]} ${BOOKTYPES[*]} ${PICTYPES[*]} ${MISCTYPES[*]}; do
+
+        echo "    ----------------------" $i "----------------------"
+
+	for x in ${MOVIETYPES[@]} ; do if [[ $x == $i ]] ; then DIR=$MOVIES ; fi ; done	# This checks what file type
+        for x in ${MUSICTYPES[@]} ; do if [[ $x == $i ]] ; then DIR=$MUSIC  ; fi ; done # is currently being searched
+        for x in ${BOOKTYPES[@]}  ; do if [[ $x == $i ]] ; then DIR=$BOOKS  ; fi ; done # for and adjusts the target
+        for x in ${PICTYPES[@]}   ; do if [[ $x == $i ]] ; then DIR=$PICS   ; fi ; done # pathname to suite.
+        for x in ${MISCTYPES[@]}  ; do if [[ $x == $i ]] ; then DIR=$MISC   ; fi ; done
+	echo "TARGET DIR:	$DIR"
+
+        IFS=$'\n'       # Avoid problems with spaces in file names.
+
+        ## Find matching file types and move to destination, retaining folder structure
+        TARGETD=($(find -H $WORKPATH -maxdepth 3 -not -name ".*" -iname *$i -type f -print0 | sed -e "s|$WORKPATH\/||g" | xargs -0 -I '{}' echo '{}' | awk -F"/" '{print $1}' ))
+
+        for d in ${TARGETD[*]}; do
+
+                CLEANd=$(echo ${d} | sed 's/_/ /g; s/[a-z]*/\u&/g')
+		# Clean output filename for underscores and capitalization
+
+		if [ "$d" = "" ] || [ "$var" = "$d" ]; then
+                        var=$d
+			continue
+		elif [ -f $DIR/$d ] || [ -d $DIR/$d ]; then
+			echo "EXISTS:		$d , ADDING TIMESTAMP $(date +%m%d%H%M%S)"
+			echo "       		FILE OR DIRECTORY MOVED TO: $DIR"
+                        mv -n $WORKPATH/$d "$DIR/$(date +%m%d%H%M%S) $d"
+                        chown -f -R $USER:$GROUP $DIR/$(date +%m%d%H%M%S)" "$d
+		else
+                        echo "MOVED:            $d FILE OR DIRECTORY MOVED TO: $DIR"
+                        mv -n $WORKPATH/$d $DIR
+                        chown -f -R $USER:$GROUP $DIR/$d
+                        chmod -f -R 777 $DIR/$d
+                fi
+                var=$d
+        done
+
+        IFS=$ORIGINAL_IFS       # Resets IFS to avoid problems with no spaces
+done
+
+rm -rf $WORKPATH
+## Clean-up work path
+
+exit

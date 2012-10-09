@@ -1,0 +1,50 @@
+#!/bin/bash
+
+# Qmanager 06/03/10 ##############################################
+##								##
+## Basic queue manager for Qencode.				##
+## Scheduled as a CRON task to run once every 5 minutes, but	##
+## only during off-hours.					##
+## Crontab schedule:						##
+## */5 22,23,0-14 * * 2-5 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin %AMAHIRIP_DIR%/scripts/Qmanager
+## */5 23,0,1,2,3,4,5,6 * * 0,1,6 PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin %AMAHIRIP_DIR%/scripts/Qmanager
+##								##
+##  The extra PATH variable must be included so cron can 	##
+##  reference needed system variables not normally provided it. ##
+##								##
+## Used in concert with Qdvdrip and Qencode.			##
+##								##	
+##################################################################
+
+QUEUEPATH=/tmp/dvdrip/queue/
+## Path for queue files
+
+### THE GOODS ###
+#################
+
+## Check that encoding job is not already running.
+if [ ! -f ${QUEUEPATH}running.job ]; then	
+
+	## Check to see if there are jobs
+	ls ${QUEUEPATH} | grep .queue > ${QUEUEPATH}contents.txt
+	nextjob=`head -1 ${QUEUEPATH}contents.txt`
+
+	## Then check to see if there's something in this variable. 
+	## If not, then there's no job to run.
+	if [[ ! -z $nextjob ]]; then	# There's a job to run
+
+		## Make file to flag that job is running.
+		## Run the job in a new bash shell.
+		echo ${nextjob} >> ${QUEUEPATH}running.job
+		bash %AMAHIRIP_DIR%/scripts/Qencode ${QUEUEPATH}$nextjob
+
+		## Now Job is complete. Remove the queue & flag files.
+		rm -f ${QUEUEPATH}${nextjob}
+		rm -f ${QUEUEPATH}running.job
+	else
+		## Clean-up. Not necessary, but I run a tight ship.
+        rm -f ${QUEUEPATH}contents.txt
+		exit
+	fi
+fi
+exit

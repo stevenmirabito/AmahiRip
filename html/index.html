@@ -1,0 +1,154 @@
+<!doctype html>
+<html>
+	<head>
+		<title>AmahiRip Configuration</title>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" />
+		<link rel="stylesheet" type="text/css" href="css/aristo/aristo.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.qtip.min.css" />
+	</head>
+	<body>
+		<div id="logo">
+			<img src="images/logo.png" alt="AmahiRip" />
+		</div>
+		<div id="container">
+			<div id="header">Configuration<span id="right"><a href="http://hda/">&larr; return to your dashboard</a></span></div>
+			<div id="content">
+				<form class="ui-form" id="configForm" name="configForm" action="index.php" method="post">
+					<div id="tabs">
+						<ul>
+							<li><a href="#general">General</a></li>
+							<li><a href="#video">Video Encoding</a></li>
+							<li><a href="#audio">Audio Encoding</a></li>
+						</ul>
+						<div id="general">
+							<fieldset>
+								<legend>Share Locations <a href="#" title="Enter the physical location of each share on your Amahi server (e.g. /var/hda/files/Movies). This can be found by going to Setup &raquo; Shares in your Amahi dashboard and clicking on the share you would like to use."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>Movies</label>
+									<input type="text" name="loc_movies" value="" required pattern="^[\w-/]*$" />
+								</span>
+								<span>
+									<label>Music</label>
+									<input type="text" name="loc_music" value="" required pattern="^[\w-/]*$" />
+								</span>
+								<span>
+									<label>Pictures</label>
+									<input type="text" name="loc_pictures" value="" required pattern="^[\w-/]*$" />
+								</span>
+								<span>
+									<label>Books</label>
+									<input type="text" name="loc_books" value="" required pattern="^[\w-/]*$" />
+								</span>
+								<span>
+									<label>Misc.</label>
+									<input type="text" name="loc_misc" value="" required pattern="^[\w-/]*$" />
+								</span>
+							</fieldset>
+							<fieldset>
+								<legend>File Types <a href="#" title="Enter the file types (e.g. mkv, mp3, jpg, mobi) you would like moved into each category, separated by a space."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>Movies</label>
+									<input type="text" name="types_movies" value="" required pattern="^[a-z\s]*$" />
+								</span>
+								<span>
+									<label>Music</label>
+									<input type="text" name="types_music" value="" required pattern="^[a-z\s]*$" />
+								</span>
+								<span>
+									<label>Pictures</label>
+									<input type="text" name="types_pictures" value="" required pattern="^[a-z\s]*$" />
+								</span>
+								<span>
+									<label>Books</label>
+									<input type="text" name="types_books" value="" required pattern="^[a-z\s]*$" />
+								</span>
+								<span>
+									<label>Misc.</label>
+									<input type="text" name="types_misc" value="" required pattern="^[a-z\s]*$" />
+								</span>
+							</fieldset>
+							<fieldset>
+								<legend>File Ownership <a href="#" title="Enter the Linux user and group that ripped data files will be owned by. Leave the default if you're not sure."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>User</label>
+									<input type="text" name="own_user" value="" required pattern="^[a-zA-Z0-9]*$" />
+								</span>
+								<span>
+									<label>Group</label>
+									<input type="text" name="own_group" value="" required pattern="^[a-zA-Z0-9]*$" />
+								</span>
+							</fieldset>
+							<fieldset class="last">
+								<legend>Temporary Folders <a href="#" title="Enter the path for each folder on your Amahi server that will be used to store temporary files. Please make sure that the path you choose to store temporary media files has at least 10 GB of free space."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>Media Files</label>
+									<input type="text" name="tmp_media" value="" required pattern="^[\w-/]*$" />
+								</span>
+								<span>
+									<label>Encoding Queue</label>
+									<input type="text" name="tmp_queue" value="" required pattern="^[\w-/]*$" />
+								</span>
+							</fieldset>
+						</div>
+						<div id="video">
+							hello world
+						</div>
+						<div id="audio">
+							hello world
+						</div>
+					</div>
+					<div id="submitButtonContainer">
+						<input type="submit" id="submitButton" value="Save Configuration" />
+					</div>
+				</form>
+			</div>
+		</div>
+		<div id="footer">
+			Copyright &copy; 2012 <a href="http://stevtek.com/">StevTek</a>. All rights reserved. &mdash; <a href="http://stevtek.com/foss-donate">Donate</a> &mdash; <a id="creditsLink" href="#">Credits</a>
+			
+			<div id="credits">
+				Thanks to all of the projects/people below for their work which helped make AmahiRip possible:
+				<ul>
+					<li><strong>Yusuke Kamiyamane</strong> - Fugue Icons</li>
+					<li><strong>Craig Thompson</strong> - qTip2</li>
+					<li><strong>jQuery</strong> - jQuery & jQuery UI</li>
+					<li><strong>Tait Brown</strong> - Aristo jQuery UI Theme</li>
+					<li><strong>Weston Ruter</strong> - Webforms2</li>
+					<li><strong>Oxygen Team</strong> - Oxygen Icons</li>
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/jquery.min.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/webforms2/webforms2-p.js"></script>
+		<script type="text/javascript" src="js/jquery.qtip.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#tabs').tabs();
+				$('a[title]').qtip({
+					content: {
+						title: {
+							text: 'Help'
+						}
+					},
+					style: {
+						classes: 'ui-tooltip-dark'
+					}
+				});
+				$("#submitButton").button();
+				$("#credits").dialog({
+					autoOpen: false,
+					width: 500,
+					height: 400,
+					modal: true,
+					title: 'Credits'
+				});
+				$("#creditsLink").click(function(){
+					$("#credits").dialog("open");
+					return false; // Prevent page from jumping to top
+				});
+			});
+		</script>
+	</body>
+</html>
