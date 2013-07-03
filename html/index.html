@@ -26,76 +26,193 @@
 								<legend>Share Locations <a href="#" title="Enter the physical location of each share on your Amahi server (e.g. /var/hda/files/Movies). This can be found by going to Setup &raquo; Shares in your Amahi dashboard and clicking on the share you would like to use."><img src="images/icons/help.png" alt="Help" /></a></legend>
 								<span>
 									<label>Movies</label>
-									<input type="text" name="loc_movies" value="" required pattern="^[\w-/]*$" />
+									<input type="text" name="gen_loc_movies" value="" required pattern="^[\w-/]*$" />
 								</span>
 								<span>
 									<label>Music</label>
-									<input type="text" name="loc_music" value="" required pattern="^[\w-/]*$" />
+									<input type="text" name="gen_loc_music" value="" required pattern="^[\w-/]*$" />
 								</span>
 								<span>
 									<label>Pictures</label>
-									<input type="text" name="loc_pictures" value="" required pattern="^[\w-/]*$" />
+									<input type="text" name="gen_loc_pictures" value="" required pattern="^[\w-/]*$" />
 								</span>
 								<span>
 									<label>Books</label>
-									<input type="text" name="loc_books" value="" required pattern="^[\w-/]*$" />
+									<input type="text" name="gen_loc_books" value="" required pattern="^[\w-/]*$" />
 								</span>
 								<span>
 									<label>Misc.</label>
-									<input type="text" name="loc_misc" value="" required pattern="^[\w-/]*$" />
+									<input type="text" name="gen_loc_misc" value="" required pattern="^[\w-/]*$" />
 								</span>
 							</fieldset>
 							<fieldset>
 								<legend>File Types <a href="#" title="Enter the file types (e.g. mkv, mp3, jpg, mobi) you would like moved into each category, separated by a space."><img src="images/icons/help.png" alt="Help" /></a></legend>
 								<span>
 									<label>Movies</label>
-									<input type="text" name="types_movies" value="" required pattern="^[a-z\s]*$" />
+									<input type="text" name="gen_types_movies" value="" required pattern="^[a-z\s]*$" />
 								</span>
 								<span>
 									<label>Music</label>
-									<input type="text" name="types_music" value="" required pattern="^[a-z\s]*$" />
+									<input type="text" name="gen_types_music" value="" required pattern="^[a-z\s]*$" />
 								</span>
 								<span>
 									<label>Pictures</label>
-									<input type="text" name="types_pictures" value="" required pattern="^[a-z\s]*$" />
+									<input type="text" name="gen_types_pictures" value="" required pattern="^[a-z\s]*$" />
 								</span>
 								<span>
 									<label>Books</label>
-									<input type="text" name="types_books" value="" required pattern="^[a-z\s]*$" />
+									<input type="text" name="gen_types_books" value="" required pattern="^[a-z\s]*$" />
 								</span>
 								<span>
 									<label>Misc.</label>
-									<input type="text" name="types_misc" value="" required pattern="^[a-z\s]*$" />
+									<input type="text" name="gen_types_misc" value="" required pattern="^[a-z\s]*$" />
 								</span>
 							</fieldset>
 							<fieldset>
 								<legend>File Ownership <a href="#" title="Enter the Linux user and group that ripped data files will be owned by. Leave the default if you're not sure."><img src="images/icons/help.png" alt="Help" /></a></legend>
 								<span>
 									<label>User</label>
-									<input type="text" name="own_user" value="" required pattern="^[a-zA-Z0-9]*$" />
+									<input type="text" name="gen_own_user" value="" required pattern="^[a-zA-Z0-9]*$" />
 								</span>
 								<span>
 									<label>Group</label>
-									<input type="text" name="own_group" value="" required pattern="^[a-zA-Z0-9]*$" />
+									<input type="text" name="gen_own_group" value="" required pattern="^[a-zA-Z0-9]*$" />
 								</span>
 							</fieldset>
 							<fieldset class="last">
 								<legend>Temporary Folders <a href="#" title="Enter the path for each folder on your Amahi server that will be used to store temporary files. Please make sure that the path you choose to store temporary media files has at least 10 GB of free space."><img src="images/icons/help.png" alt="Help" /></a></legend>
 								<span>
 									<label>Media Files</label>
-									<input type="text" name="tmp_media" value="" required pattern="^[\w-/]*$" />
+									<input type="text" name="gen_tmp_media" value="" required pattern="^[\w-/]*$" />
 								</span>
 								<span>
 									<label>Encoding Queue</label>
-									<input type="text" name="tmp_queue" value="" required pattern="^[\w-/]*$" />
+									<input type="text" name="gen_tmp_queue" value="" required pattern="^[\w-/]*$" />
 								</span>
 							</fieldset>
 						</div>
 						<div id="video">
-							hello world
+							<fieldset>
+								<legend>Handbrake Settings <a href="#" title="Set the path and options for the Handbrake video encoding application."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>Binary Path</label>
+									<input type="text" name="vid_hb_binary_path" value="" required pattern="^[\w-/]*$" />
+								</span>
+								<span>
+									<label>x264 Arguments</label>
+									<input type="text" name="vid_hb_x264_args" value="" required pattern="^[\w-/]*$" />
+								</span>
+								<span>
+									<label>x264 Matrix File</label>
+									<input type="text" name="vid_hb_x264_matrix" value="" required pattern="^[\w-/]*$" />
+								</span>
+							</fieldset>
+							<fieldset>
+								<legend>Encoding Options <a href="#" title="Configure what is encoded from a ripped disc."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>Chapters <a href="#" title="Chapters to encode. Example: 0 (all chapters), 7 (only chapter 7), 3-6 (chapters 3 to 6)."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="text" name="vid_enc_chapters" value="" required pattern="^\d+(?:-\d+)?$" />
+								</span>
+								<span>
+									<label>One Track <a href="#" title="Encode a series disc 'Play All' track instead of indivudual episodes."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="radio" name="vid_enc_track" value="yes" /> Yes &nbsp; <input type="radio" name="vid_enc_track" value="no" /> No
+								</span>
+								<span>
+									<label>Subtitles <a href="#" title="Include subtitles in the finished file."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="radio" name="vid_enc_subs" value="yes" /> Yes &nbsp; <input type="radio" name="vid_enc_subs" value="no" /> No
+								</span>
+								<span>
+									<label>Two-Pass <a href="#" title="Do two-pass encoding."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="radio" name="vid_enc_twopass" value="yes" /> Yes &nbsp; <input type="radio" name="vid_enc_twopass" value="no" /> No
+								</span>
+								<span>
+									<label>Quality <a href="#" title="Target video quality (RF 20)."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="text" name="vid_enc_quality" value="" required pattern="^[0-9]+(\.[0-9]+?)?$" />
+								</span>
+							</fieldset>
+							<fieldset>
+								<legend>SmartRip <a href="#" title="Configure AmahiRip's SmartRip engine."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>Episodes <a href="#" title="Percentage range to determine episode titles on a series disc."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="text" name="own_user" value="" required pattern="^[0-9]+(\.[0-9]+?)?$" />
+								</span>
+								<span>
+									<label>Play All <a href="#" title="Percentage range to determine the 'Play All' title on a series disc."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="text" name="own_group" value="" required pattern="^[0-9]+(\.[0-9]+?)?$" />
+								</span>
+								<span>
+									<label>Premiere <a href="#" title="Percentage range to determine the premiere episode on a series disc."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="text" name="own_group" value="" required pattern="^[0-9]+(\.[0-9]+?)?$" />
+								</span>
+								<span>
+									<label>Lower Limit <a href="#" title="Include tracks longer than specified time (in seconds)."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="text" name="own_group" value="" required pattern="^[0-9]+(\.[0-9]+?)?$" />
+								</span>
+								<span>
+									<label>Upper Limit <a href="#" title="Include tracks shorter than specified time (in seconds)."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="text" name="own_group" value="" required pattern="^[0-9]+(\.[0-9]+?)?$" />
+								</span>
+							</fieldset>
+							<fieldset class="last">
+								<legend>Other Options <a href="#" title="These options are only useful during development or for advanced users. Most people should leave them at their defaults."><img src="images/icons/help.png" alt="Help" /></a></legend>
+								<span>
+									<label>Clean Up <a href="#" title="Clean up the temporary work files when the encoding completes."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="radio" name="vid_other_clean" value="yes" /> Yes &nbsp; <input type="radio" name="vid_other_clean" value="no" /> No
+								</span>
+								<span>
+									<label>Verbose <a href="#" title="Be more verbose when processing."><img src="images/icons/help.png" alt="Help" /></a></label>
+									<input type="radio" name="vid_other_verbose" value="yes" /> Yes &nbsp; <input type="radio" name="vid_other_verbose" value="no" /> No
+								</span>
+							</fieldset>
 						</div>
 						<div id="audio">
-							hello world
+							<textarea name="audio_enc_config">
+flac=false
+vorbis=false
+mp3=true
+username=anonymous
+flacsettings=--best -V
+naming_image=%a/%b/%a - %b(%y)
+minLengthHiddenTrack=2
+browser=echo
+gain=album
+noSpaces=false
+vorbissettings=-q 4
+offset=0
+maxThreads=2
+first_hit=true
+mp3settings=-V 3 --id3v2-only
+cdrom=/dev/cdrom
+verbose=false
+req_matches_all=2
+othersettings=
+debug=true
+site=http://freedb.freedb.org/~cddb/cddb.cgi
+freedb=true
+no_log=false
+create_cue=true
+normalize=false
+freedbCache=%AMAHIRIP_DIR%/.cache/freedb.yaml
+eject=true
+editor=echo
+hostname=my_secret.com
+other=false
+max_tries=25
+naming_normal=%a/%b/%n - %t
+naming_various=%va/%b/%n - %a - %t
+req_matches_errors=4
+image=false
+gainTagsOnly=false
+preEmphasis=cue
+wav=false
+rippersettings=
+basedir=%AMAHIRIP_DIR%/media/music
+ripHiddenAudio=true
+pregaps=prepend
+playlist=true
+filemanager=echo
+noCapitals=false
+							</textarea>
 						</div>
 					</div>
 					<div id="submitButtonContainer">
